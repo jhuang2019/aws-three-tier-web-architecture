@@ -25,7 +25,7 @@ resource "aws_subnet" "private_subnet" {
 }
 
 
-/*resource "aws_eip" "gw" {
+resource "aws_eip" "gw" {
   count = "1"
 }
 
@@ -37,11 +37,7 @@ resource "aws_nat_gateway" "gw" {
    
   # subnet_id     = "${aws_subnet.public_subnet[0].id}"
   
-  subnet_id = element(
-    aws_subnet.public_subnet[*].id,
-    var.single_nat_gateway ? 0 : count.index,
-  )
-
+  subnet_id =    aws_subnet.public_subnet[element(keys(aws_subnet.public_subnet), 0)].id
 }
 
-*/
+

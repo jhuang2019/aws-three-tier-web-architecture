@@ -10,7 +10,6 @@ module "vpc" {
   private_subnet            = var.private_subnet
   availability_zones        = var.availability_zones
   cidr_block                = var.cidr_block
-  single_nat_gateway        = true
   enable_dns_hostnames =   true
   enable_dns_support   = true
 }
