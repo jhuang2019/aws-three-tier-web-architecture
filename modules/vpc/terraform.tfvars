@@ -25,8 +25,19 @@ cidr_block = [
   "0.0.0.0/0"
 ]
 
+route_table_id = [
+  "aws_route_table.main[each.key].id"
+]
+
+gateway_id = [
+  "aws_internet_gateway.main.id"
+]
+
+subnet_id = [
+  "aws_subnet.public_subnet.id"
+]
+
 enable_dns_hostnames = true
 
 enable_dns_support = true
 
-single_nat_gateway = true

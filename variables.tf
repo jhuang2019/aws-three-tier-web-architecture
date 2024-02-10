@@ -1,19 +1,19 @@
 variable "region" {
   description = "AWS Region"
-  type = string
-  default = "ap-southeast-2"
+  type        = string
+  default     = "ap-southeast-2"
 }
 
 variable "vpc_id" {
-  description ="The VPC to be deployed"
-  type = string
-  default = "aws_vpc.main.id"
+  description = "The VPC to be deployed"
+  type        = string
+  default     = "aws_vpc.main.id"
 }
 
 variable "vpc_cidr" {
   description = "The VPC Network Range"
-  type = string
-  default = "10.0.0.0/16"
+  type        = string
+  default     = "10.0.0.0/16"
 }
 
 variable "public_subnet" {
@@ -21,7 +21,7 @@ variable "public_subnet" {
   type        = map(string)
   default = {
     "ap-southeast-2a" : "10.0.10.0/24",
-    "ap-southeast-2c" : "10.0.20.0/24" 
+    "ap-southeast-2c" : "10.0.20.0/24"
   }
 }
 
@@ -30,7 +30,7 @@ variable "private_subnet" {
   type        = map(string)
   default = {
     "ap-southeast-2a" : "10.0.100.0/24",
-    "ap-southeast-2c" : "10.0.200.0/24" 
+    "ap-southeast-2c" : "10.0.200.0/24"
   }
 }
 
@@ -43,6 +43,24 @@ variable "cidr_block" {
   description = "CIDR Block to allow traffic via"
   type        = string
   default     = "0.0.0.0/0"
+}
+
+variable "route_table_id" {
+  description = "The ID of the Routing Table"
+  type        = string
+  default     = "aws_route_table.main[each.key].id"
+}
+
+variable "gateway_id" {
+  description = "Identifier of the VPC Internet Gateway"
+  type        = string
+  default     = "aws_internet_gateway.main.id"
+}
+
+variable "subnet_id" {
+  description = "subnet ID which resources will be launched in"
+  type        = string
+  default     = "aws_subnet.public_subnet.id"
 }
 
 variable "enable_dns_hostnames" {
