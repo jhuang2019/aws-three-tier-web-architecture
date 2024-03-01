@@ -15,12 +15,12 @@ variable "availability_zones" {
 
 variable "public_subnet" {
   description = "A list of public subnets inside the VPC"
-  type = map(string)
+  type = list(string)
 }
 
 variable "private_subnet" {
   description = "A list of private subnets inside the VPC"
-  type = map(string)
+  type = list(string)
 }
 
 variable "cidr_block" {
@@ -28,20 +28,20 @@ variable "cidr_block" {
   type = string
 }
 
-variable "route_table_id" {
+/*variable "route_table_id" {
   description = "The ID of the Routing Table"
   type = string
-}
+}*/
 
 variable "gateway_id" {
   description = "Identifier of the VPC Internet Gateway"
   type = string
 }
 
-variable "subnet_id" {
+/*variable "subnet_id" {
   description =  "subnet ID which resources will be launched in"
   type = string
-}
+}*/
 
 variable "enable_dns_hostnames" {
   description = "Should be true to enable DNS hostnames in the VPC"
