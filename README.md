@@ -20,7 +20,7 @@ EC2,VPC,IAM,RDS and Secrets Manager
 The below diagram is from the first reference site (AWS General Immersion Day workshop) above
 ![Alt text](./images/overall-diagram.png)
 
-## 1. Prerequisites
+## Prerequisites
 
 * Create a new aws account
 * Create an IAM user in the new aws account created above with the details below.
@@ -29,7 +29,7 @@ The below diagram is from the first reference site (AWS General Immersion Day wo
   * Attach policies directly with the policy name called `AdministratorAccess`
 * The following parts are implemented in the IAM user account created above.
 
-## 2. Network - Amazon VPC
+## 1. Network - Amazon VPC
 
 * Create a VPC in the region `Asia Pacific (Sydney)` with the following details.
   * Name: VPC-Lab

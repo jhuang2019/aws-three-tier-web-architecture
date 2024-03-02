@@ -35,3 +35,4 @@ enable_dns_hostnames = true
 
 enable_dns_support = true
 
+ec2_security_group_name = "ec2-instance-security-group"

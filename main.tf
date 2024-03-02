@@ -13,4 +13,13 @@ module "vpc" {
   gateway_id           = module.vpc.gateway_id
   enable_dns_hostnames = true
   enable_dns_support   = true
+  ec2_security_group_name = var.ec2_security_group_name
+}
+
+module "ec2" {
+  source             = "./modules/ec2"
+  image_id           = var.image_id
+  instance_type      = var.instance_type
+  ec2_security_group = module.vpc.ec2_security_group_name
+  public_subnet_2a_id = module.vpc.public_subnet_2a_id
 }

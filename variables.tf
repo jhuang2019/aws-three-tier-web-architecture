@@ -4,6 +4,10 @@ variable "region" {
   default     = "ap-southeast-2"
 }
 
+################################################################################
+# VPC Module - Variables 
+################################################################################
+
 variable "vpc_id" {
   description = "The VPC to be deployed"
   type        = string
@@ -55,4 +59,26 @@ variable "enable_dns_support" {
   description = "Should be true to enable DNS support in the VPC"
   type        = bool
   default     = true
+}
+
+variable "ec2_security_group_name" {
+  description = "security group for EC2 instances"
+  type        = string
+  default     = "ec2-instance-security-group"
+}
+
+################################################################################
+# EC2 Module - Variables 
+################################################################################
+
+variable "image_id" {
+  description = "Image ID"
+  type        = string
+  default     = "ami-07e1aeb90edb268a3"
+}
+
+variable "instance_type" {
+  description = "Type of EC2 instance"
+  type        = string
+  default     = "t2.micro"
 }

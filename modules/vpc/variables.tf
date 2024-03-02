@@ -54,7 +54,7 @@ variable "enable_dns_support" {
  
 }
 
-# VPC Single NAT Gateway (True or False)
+/*# VPC Single NAT Gateway (True or False)
 variable "single_nat_gateway" {
   description = "Should be true if you want to provision a single shared NAT Gateway across all of your private networks"
   type        = bool
@@ -64,4 +64,9 @@ variable "single_nat_gateway" {
 variable "public_subnet_names"{
   type = list
   default = ["public subnet1","public subnet2"]
+}*/
+
+variable "ec2_security_group_name" {
+  description ="security group for EC2 instances"
+  type = string
 }
