@@ -67,6 +67,12 @@ variable "ec2_security_group_name" {
   default     = "ec2-instance-security-group"
 }
 
+variable "web_alb_security_group_name" {
+  description = "security group for application load balancers"
+  type        = string
+  default     = "web-ALB-SG"
+}
+
 ################################################################################
 # EC2 Module - Variables 
 ################################################################################
@@ -81,4 +87,75 @@ variable "instance_type" {
   description = "Type of EC2 instance"
   type        = string
   default     = "t2.micro"
+}
+
+variable "app_alb_name" {
+  description = "Name of Application Load Balancer"
+  type = string
+  default = "Web-ALB"
+}
+
+variable "alb_internal" {
+  description = "Application Load Balancer Network Type"
+  type = string 
+  default = "false"
+}
+
+variable "load_balancer_type" {
+  description = "The type of Load Balancer"
+  type = string
+  default = "application"
+}
+
+/*variable "alb_security_group" {
+  description = "Application Load Balancer Security Group"
+  type = string
+}*/
+
+variable "load_balancer_arn" {
+  description = "Application Load Balancer ARN"
+  type = string
+  default = "aws_lb.main.arn"
+}
+
+variable "alb_listener_port" {
+  description = "Application Load Balancer Listener Port"
+  type = string
+  default = "80"
+}
+
+variable "alb_listener_protocol" {
+  description = "Application Load Balancer Listener Protocol"
+  type = string
+  default ="HTTP"
+}
+
+variable "alb_listener_type" {
+  description = "Application Load Balancer Listener Type"
+  type =string
+  default ="forward"
+}
+
+variable "alb_target_group_arn" {
+  description = "Application Load Balancer Target Group ARN"
+  type = string
+  default = "aws_lb_target_group.main.arn"
+}
+
+variable "alb_target_group" {
+  description = "Application Load Balancer Target Group"
+  type = string
+  default = "web-TG"
+}
+
+variable "alb_target_group_port" {
+  description = "Application Load Balancer Target Group Port"
+  type = string
+  default = "80"
+}
+
+variable "alb_target_group_protocol" {
+  description = "Application Load Balancer Target Protocol"
+  type = string
+  default = "HTTP"
 }

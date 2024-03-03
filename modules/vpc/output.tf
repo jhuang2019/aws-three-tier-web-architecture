@@ -14,6 +14,16 @@ output "ec2_security_group_name" {
 }
 
 output "public_subnet_2a_id" {
-  description = "EC2 Instance Security Group"
+  description = "public subnet 2a"
   value = aws_subnet.public_subnet_2a.id
+}
+
+output "public_subnet_2c_id" {
+  description = "public subnet 2c"
+  value = aws_subnet.public_subnet_2c.id
+}
+
+output "web_alb_security_group_name" {
+  description = "Application Load Balancer Security Group"
+  value = aws_security_group.web_alb_sg.id
 }

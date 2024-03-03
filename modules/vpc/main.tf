@@ -152,7 +152,7 @@ resource "aws_route_table_association" "private_route_table_c" {
   route_table_id = aws_route_table.private_route_table_c.id
 }
 
-# Create security group for EC2 instances
+# Create a security group for EC2 instances
 resource "aws_security_group" "ec2_sg" {
   name = var.ec2_security_group_name
   description = "security group for EC2 instances"
@@ -183,5 +183,24 @@ resource "aws_security_group" "ec2_sg" {
 
     tags = {
         Name = "EC2-SG"
+    }
+}
+
+# Create a security group for application load balancers
+resource "aws_security_group" "web_alb_sg" {
+  name = var.web_alb_security_group_name
+  description = "security group for application load balancers"
+  vpc_id = var.vpc_id
+
+  ingress {
+            description = "Allow HTTP access"
+            from_port = 80
+            to_port = 80
+            protocol = "tcp"
+            cidr_blocks = [var.cidr_block]
+    }
+
+    tags = {
+        Name = "web-ALB-SG"
     }
 }

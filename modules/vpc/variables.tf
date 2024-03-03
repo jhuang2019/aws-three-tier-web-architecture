@@ -28,20 +28,11 @@ variable "cidr_block" {
   type = string
 }
 
-/*variable "route_table_id" {
-  description = "The ID of the Routing Table"
-  type = string
-}*/
-
 variable "gateway_id" {
   description = "Identifier of the VPC Internet Gateway"
   type = string
 }
 
-/*variable "subnet_id" {
-  description =  "subnet ID which resources will be launched in"
-  type = string
-}*/
 
 variable "enable_dns_hostnames" {
   description = "Should be true to enable DNS hostnames in the VPC"
@@ -54,19 +45,12 @@ variable "enable_dns_support" {
  
 }
 
-/*# VPC Single NAT Gateway (True or False)
-variable "single_nat_gateway" {
-  description = "Should be true if you want to provision a single shared NAT Gateway across all of your private networks"
-  type        = bool
-  default     = false
-}
-
-variable "public_subnet_names"{
-  type = list
-  default = ["public subnet1","public subnet2"]
-}*/
-
 variable "ec2_security_group_name" {
   description ="security group for EC2 instances"
+  type = string
+}
+
+variable "web_alb_security_group_name" {
+  description ="security group for application load balancers"
   type = string
 }

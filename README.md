@@ -140,7 +140,7 @@ Create an appllication load balancer with the following details.
 
 * load balancer name: Web-ALB
 * VPC: VPC-Lab-vpc
-* Subnets: VPC-Lab-subnet-public1-ap-southeast-21 and VPC-Lab-subnet-public2-ap-southeast-2c
+* Subnets: VPC-Lab-subnet-public1-ap-southeast-2a and VPC-Lab-subnet-public2-ap-southeast-2c
 * Create a new security group with the details below and attach it to the ALB. Remove the default security group.
   * security group name: `web-ALB-SG`
   * description: web-ALB-SG
