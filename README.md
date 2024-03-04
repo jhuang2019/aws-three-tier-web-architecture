@@ -6,7 +6,7 @@ The web architecture consists of three tiers, including web tier, application ti
 
 ## References
 
-* AWS General Immersion Day workshop: <https://catalog.workshops.aws/general-immersionday/en-US>
+* AWS General Immersion Day workshop: <https://catalog.us-east-1.prod.workshops.aws/workshops/869a0a06-1f98-4e19-b5ac-cbb1abdfc041/en-US>
 * <https://github.com/aws-samples/aws-three-tier-web-architecture-workshop>
 * <https://github.com/BJWRD/three-tier-architecture>
 * <https://github.com/Emmylong1/terraform-3-tier-webapp>

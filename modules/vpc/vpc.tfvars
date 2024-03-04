@@ -38,3 +38,5 @@ enable_dns_support = true
 ec2_security_group_name = "ec2-instance-security-group"
 
 web_alb_security_group_name = "web-ALB-SG"
+
+asg_web_inst_security_group_name = "ASG-Web-Inst-SG"

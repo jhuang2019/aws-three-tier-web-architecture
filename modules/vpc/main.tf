@@ -204,3 +204,22 @@ resource "aws_security_group" "web_alb_sg" {
         Name = "web-ALB-SG"
     }
 }
+
+#Create a security group for the instances created through the launch template to use
+resource "aws_security_group" "asg_web_inst_sg" {
+    name = var.asg_web_inst_security_group_name
+    description = "security group for the instances created through the launch template"
+    vpc_id = var.vpc_id
+    
+    ingress {
+            description = "Allow HTTP access"
+            from_port = 80
+            to_port = 80
+            protocol = "tcp"
+            security_groups = [aws_security_group.web_alb_sg.id]
+    }
+    
+    tags = {
+        Name = "asg-web-inst-sg"
+    }
+}

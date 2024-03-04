@@ -54,3 +54,8 @@ variable "web_alb_security_group_name" {
   description ="security group for application load balancers"
   type = string
 }
+
+variable "asg_web_inst_security_group_name" {
+  description ="security group for instances created through the launch template"
+  type = string
+}

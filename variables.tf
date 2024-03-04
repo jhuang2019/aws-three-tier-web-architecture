@@ -73,6 +73,12 @@ variable "web_alb_security_group_name" {
   default     = "web-ALB-SG"
 }
 
+variable "asg_web_inst_security_group_name" {
+  description = "security group for instances created through the launch template"
+  type        = string
+  default     = "ASG-Web-Inst-SG"
+}
+
 ################################################################################
 # EC2 Module - Variables 
 ################################################################################
@@ -106,11 +112,6 @@ variable "load_balancer_type" {
   type = string
   default = "application"
 }
-
-/*variable "alb_security_group" {
-  description = "Application Load Balancer Security Group"
-  type = string
-}*/
 
 variable "load_balancer_arn" {
   description = "Application Load Balancer ARN"

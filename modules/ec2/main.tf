@@ -1,20 +1,14 @@
-# App - Launch Template
-/*resource "aws_launch_template" "main" {
-  name = "EC2-web-instance"
-  description = "Template to launch an EC2 instance and deploy the application"
-  image_id               = var.image_id
-  instance_type          = var.instance_type
-  vpc_security_group_ids = [var.ec2_security_group]
-  network_interfaces {
-    device_index = 0
-    subnet_id = var.public_subnet_2a_id
-    associate_public_ip_address = true
-  }  
-  user_data              = filebase64("./modules/ec2/install.sh")
-
-  tags = {
-    Name = "EC2 web instance launch template"
+/*data "aws_ami" "amazon-linux2" {
+ most_recent = true
+ filter {
+    name   = "architecture"
+    values = ["x86_64"]
   }
+ filter {
+   name   = "name"
+   values = ["Web server v1"]
+ }
+ owners = ["058264449946"] # AWS
 }*/
 
 resource "aws_instance" "ec2_instance" {
@@ -80,5 +74,26 @@ resource "aws_lb_target_group" "main" {
   health_check {
     protocol  = var.alb_target_group_protocol
     port     = var.alb_target_group_port
+  }
+}
+
+# App - Launch Template
+resource "aws_launch_template" "main" {
+  name = "EC2-web-instance"
+  description = "Template to launch an EC2 instance and deploy the application"
+  #image_id               = data.aws_ami.amazon-linux2.id
+  image_id               = aws_ami_from_instance.from_ec2_ami.id
+  instance_type          = var.instance_type
+  #vpc_security_group_ids = [var.ec2_security_group]
+  vpc_security_group_ids = [var.asg_web_inst_security_group]
+  /*network_interfaces {
+    device_index = 0
+    subnet_id = var.public_subnet_2a_id
+    associate_public_ip_address = true
+  }*/  
+  user_data              = filebase64("./modules/ec2/install.sh")
+
+  tags = {
+    Name = "EC2 web instance launch template"
   }
 }

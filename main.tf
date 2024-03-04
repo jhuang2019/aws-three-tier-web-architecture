@@ -15,6 +15,7 @@ module "vpc" {
   enable_dns_support   = true
   ec2_security_group_name = var.ec2_security_group_name
   web_alb_security_group_name = var.web_alb_security_group_name
+  asg_web_inst_security_group_name = var.asg_web_inst_security_group_name
 }
 
 module "ec2" {
@@ -37,4 +38,5 @@ module "ec2" {
   alb_target_group_port = var.alb_target_group_port
   alb_target_group_protocol = var.alb_target_group_protocol
   vpc_id = module.vpc.vpc_id
+  asg_web_inst_security_group = module.vpc.asg_web_inst_security_group_name
 }

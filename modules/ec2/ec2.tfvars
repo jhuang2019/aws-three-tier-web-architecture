@@ -20,4 +20,3 @@ alb_target_group = "web-TG"
 
 alb_target_group_protocol = "HTTP"
 
-#alb_security_group = "web-ALB-SG"
