@@ -14,20 +14,16 @@ variable "ec2_security_group" {
   type = string
 }
 
-variable "asg_web_inst_security_group" {
-  description = "EC2 Security Group"
-  type = string
-}
+
 
 variable "public_subnet_2a_id" {
   description = "id of the public subnet in AZ zone 2a"  
   type = string
 }
 
-variable "public_subnet_2c_id" {
-  description = "id of the public subnet in AZ zone 2c"  
-  type = string
-}
+/* create an ami from the EC2 intance created above */
+
+/* create an application load balancer */
 
 variable "app_alb_name" {
   description = "Name of Application Load Balancer"
@@ -46,6 +42,11 @@ variable "load_balancer_type" {
 
 variable "web_alb_security_group_name" {
   description = "Application Load Balancer Security Group"
+  type = string
+}
+
+variable "public_subnet_2c_id" {
+  description = "id of the public subnet in AZ zone 2c"  
   type = string
 }
 
@@ -69,10 +70,10 @@ variable "alb_listener_type" {
   type =string
 }
 
-variable "alb_target_group_arn" {
-  description = "Application Load Balancer Target Group ARN"
-  type = string
-}
+//variable "alb_target_group_arn" {
+  //description = "Application Load Balancer Target Group ARN"
+  //type = string
+//}
 
 variable "alb_target_group" {
   description = "Application Load Balancer Target Group"
@@ -95,7 +96,18 @@ variable "vpc_id" {
   type = string
 }
 
-/*variable "app_autoscaling_group" {
-  description = "Autoscaling Group Name"
+/* configure launch template */
+variable "asg_web_inst_security_group" {
+  description = "EC2 Security Group"
   type = string
-}*/
+}
+
+variable "private_subnet_2a_id" {
+  description = "id of the private subnet in AZ zone 2a"  
+  type = string
+}
+
+variable "private_subnet_2c_id" {
+  description = "id of the private subnet in AZ zone 2c"  
+  type = string
+}

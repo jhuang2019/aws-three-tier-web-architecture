@@ -192,7 +192,7 @@ Create an Auto Scaling Group with the following details.
 * Scaling policy name: Tracking policy
 * metric type: average CPU utilization
 * target value: 20
-* instance warmdup: 60 seconds
+* instance warmup: 60 seconds
 ![Alt text](./images/asg_scaling.png)
 * Create a tag: type `Name` in Key, `ASG-Web-Instance` in Value
 * health check: 120 seconds

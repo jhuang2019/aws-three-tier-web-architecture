@@ -23,6 +23,16 @@ output "public_subnet_2c_id" {
   value = aws_subnet.public_subnet_2c.id
 }
 
+output "private_subnet_2a_id" {
+  description = "private subnet 2a"
+  value = aws_subnet.private_subnet_2a.id
+}
+
+output "private_subnet_2c_id" {
+  description = "public subnet 2c"
+  value = aws_subnet.private_subnet_2c.id
+}
+
 output "web_alb_security_group_name" {
   description = "Application Load Balancer Security Group"
   value = aws_security_group.web_alb_sg.id

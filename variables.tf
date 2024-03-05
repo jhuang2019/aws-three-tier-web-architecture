@@ -95,6 +95,9 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
+/* create an ami from the EC2 intance created above */
+
+/* create an application load balancer */
 variable "app_alb_name" {
   description = "Name of Application Load Balancer"
   type = string
@@ -137,11 +140,11 @@ variable "alb_listener_type" {
   default ="forward"
 }
 
-variable "alb_target_group_arn" {
-  description = "Application Load Balancer Target Group ARN"
-  type = string
-  default = "aws_lb_target_group.main.arn"
-}
+//variable "alb_target_group_arn" {
+  //description = "Application Load Balancer Target Group ARN"
+  //type = string
+  //default = "aws_lb_target_group.main.arn"
+//}
 
 variable "alb_target_group" {
   description = "Application Load Balancer Target Group"
