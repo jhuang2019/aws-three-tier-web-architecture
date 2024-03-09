@@ -1,4 +1,5 @@
-image_id = "ami-07e1aeb90edb268a3"
+//image_id = "ami-07e1aeb90edb268a3"
+image_id = "ami-023eb5c021738c6d0"
 
 instance_type = "t2.micro"
 

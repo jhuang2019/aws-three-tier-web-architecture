@@ -4,9 +4,9 @@ variable "region" {
   default     = "ap-southeast-2"
 }
 
-################################################################################
-# VPC Module - Variables 
-################################################################################
+#########################################
+##### Variables for the VPC Module   ####
+#########################################
 
 variable "vpc_id" {
   description = "The VPC to be deployed"
@@ -38,13 +38,13 @@ variable "availability_zones" {
 }
 
 variable "cidr_block" {
-  description = "CIDR Block to allow traffic via"
+  description = "CIDR Block to allow traffic"
   type        = string
   default     = "0.0.0.0/0"
 }
 
 variable "gateway_id" {
-  description = "Identifier of the VPC Internet Gateway"
+  description = "VPC Internet Gateway"
   type        = string
   default     = "aws_internet_gateway.main.id"
 }
@@ -79,23 +79,22 @@ variable "asg_web_inst_security_group_name" {
   default     = "ASG-Web-Inst-SG"
 }
 
-################################################################################
-# EC2 Module - Variables 
-################################################################################
+#########################################
+##### Variables for the EC2 Module   ####
+#########################################
 
 variable "image_id" {
   description = "Image ID"
   type        = string
-  default     = "ami-07e1aeb90edb268a3"
+  //default     = "ami-07e1aeb90edb268a3"
+  default     = "ami-023eb5c021738c6d0"
 }
 
 variable "instance_type" {
-  description = "Type of EC2 instance"
+  description = "Type of EC2 instances"
   type        = string
   default     = "t2.micro"
 }
-
-/* create an ami from the EC2 intance created above */
 
 /* create an application load balancer */
 variable "app_alb_name" {
@@ -111,7 +110,7 @@ variable "alb_internal" {
 }
 
 variable "load_balancer_type" {
-  description = "The type of Load Balancer"
+  description = "Type of Load Balancer"
   type = string
   default = "application"
 }
@@ -139,12 +138,6 @@ variable "alb_listener_type" {
   type =string
   default ="forward"
 }
-
-//variable "alb_target_group_arn" {
-  //description = "Application Load Balancer Target Group ARN"
-  //type = string
-  //default = "aws_lb_target_group.main.arn"
-//}
 
 variable "alb_target_group" {
   description = "Application Load Balancer Target Group"

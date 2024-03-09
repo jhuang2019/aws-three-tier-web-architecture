@@ -9,7 +9,7 @@ variable "vpc_id" {
 }
 
 variable "availability_zones" {
-  description = "Avaiability Zones used"
+  description = "Avaiability Zones"
   type = list(string)
 }
 
@@ -24,15 +24,14 @@ variable "private_subnet" {
 }
 
 variable "cidr_block" {
-  description = "CIDR Block to allow traffic via"
+  description = "CIDR Block to allow traffic"
   type = string
 }
 
 variable "gateway_id" {
-  description = "Identifier of the VPC Internet Gateway"
+  description = "VPC Internet Gateway"
   type = string
 }
-
 
 variable "enable_dns_hostnames" {
   description = "Should be true to enable DNS hostnames in the VPC"
@@ -42,8 +41,7 @@ variable "enable_dns_hostnames" {
 variable "enable_dns_support" {
   description = "Should be true to enable DNS support in the VPC"
   type        = bool
- 
-}
+ }
 
 variable "ec2_security_group_name" {
   description ="security group for EC2 instances"
@@ -56,6 +54,6 @@ variable "web_alb_security_group_name" {
 }
 
 variable "asg_web_inst_security_group_name" {
-  description ="security group for instances created through the launch template"
+  description ="security group for the instances created through the launch template"
   type = string
 }

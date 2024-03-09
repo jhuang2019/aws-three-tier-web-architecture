@@ -11,7 +11,7 @@ resource "aws_vpc" "main" {
   }
 }
 
-# Public subnet
+# Public subnet 1
 resource "aws_subnet" "public_subnet_2a" {
   vpc_id = var.vpc_id
   cidr_block = element(var.public_subnet,0)
@@ -22,6 +22,7 @@ resource "aws_subnet" "public_subnet_2a" {
   }
 }
 
+# Public subnet 2
 resource "aws_subnet" "public_subnet_2c" {
   vpc_id = var.vpc_id
   cidr_block = element(var.public_subnet,1)
@@ -32,7 +33,7 @@ resource "aws_subnet" "public_subnet_2c" {
   }
 }
 
-# Private subnet
+# Private subnet 1
 resource "aws_subnet" "private_subnet_2a" {
   vpc_id = var.vpc_id
   cidr_block = element(var.private_subnet,0)
@@ -43,6 +44,7 @@ resource "aws_subnet" "private_subnet_2a" {
   }
 }
 
+# Private subnet 2
 resource "aws_subnet" "private_subnet_2c" {
   vpc_id = var.vpc_id
   cidr_block = element(var.private_subnet,1)
@@ -53,7 +55,7 @@ resource "aws_subnet" "private_subnet_2c" {
   }
 }
 
-#Internet Gateway for the Public Subnet
+#Internet Gateway for the Public Subnets
 resource "aws_internet_gateway" "main" {
   vpc_id = var.vpc_id
 
@@ -64,31 +66,26 @@ resource "aws_internet_gateway" "main" {
 
 # Create an Elastic IP for NAT Gateway 1 
 resource "aws_eip" "gw" {
-  #count = "1"
   tags = {
     Name ="Elastic IP for Nat Gateway 1"
   }
   depends_on = [aws_internet_gateway.main]
 }
 
-# Create NAT Gateway 1 for Availability Zone A
+# Create a NAT Gateway for the Availability Zone A
 resource "aws_nat_gateway" "nat_gw" {
-  #count = "1"
   allocation_id = aws_eip.gw.id
   depends_on = [aws_internet_gateway.main]
   subnet_id = aws_subnet.public_subnet_2a.id
-  # subnet_id =  aws_subnet.public_subnet[element(keys(aws_subnet.public_subnet), 0)].id
 
   tags = {
     Name = "Nat Gateway 1 for Availability Zone A"
   }
 }
 
-
-# Route Table for the Public Subnet
+# Route Table for the Public Subnets
 resource "aws_route_table" "public_route_table" {
   vpc_id = var.vpc_id
-
   route {
     cidr_block             = var.cidr_block
     gateway_id             = var.gateway_id 
@@ -96,7 +93,6 @@ resource "aws_route_table" "public_route_table" {
 
   tags =  { 
     Name = "Public-Route-Table" 
-    #Name = join(" ",["Public-Route-Table",each.key])
   }
 }
 
@@ -111,11 +107,9 @@ resource "aws_route_table_association" "public_route_table_c" {
   route_table_id = aws_route_table.public_route_table.id
 }
 
-
-# Route first table for the Private Subnet
+# First route table for the Private Subnet 1
 resource "aws_route_table" "private_route_table_a" {
   vpc_id = var.vpc_id
-
   route {
     cidr_block             = var.cidr_block
     gateway_id             = aws_nat_gateway.nat_gw.id 
@@ -132,7 +126,7 @@ resource "aws_route_table_association" "private_route_table_a" {
   route_table_id = aws_route_table.private_route_table_a.id
 }
 
-# Route second table for the Private Subnet
+# Second route table for the Private Subnet 2
 resource "aws_route_table" "private_route_table_c" {
   vpc_id = var.vpc_id
 

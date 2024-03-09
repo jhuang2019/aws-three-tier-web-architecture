@@ -1,32 +1,27 @@
-
 variable "image_id" {
   description = "Image ID"
   type = string
 }
 
 variable "instance_type" {
-  description = "Type of EC2 instance"
+  description = "Type of EC2 instances"
   type = string
 }
 
 variable "ec2_security_group" {
-  description = "EC2 Security Group"
+  description = "security group for EC2 instances"
   type = string
 }
-
-
 
 variable "public_subnet_2a_id" {
-  description = "id of the public subnet in AZ zone 2a"  
+  description = "id of the public subnet in the AZ 2a"  
   type = string
 }
 
-/* create an ami from the EC2 intance created above */
 
 /* create an application load balancer */
-
 variable "app_alb_name" {
-  description = "Name of Application Load Balancer"
+  description = "Name of the Application Load Balancer"
   type = string
 }
 
@@ -41,12 +36,12 @@ variable "load_balancer_type" {
 }
 
 variable "web_alb_security_group_name" {
-  description = "Application Load Balancer Security Group"
+  description = "security group for application load balancers"
   type = string
 }
 
 variable "public_subnet_2c_id" {
-  description = "id of the public subnet in AZ zone 2c"  
+  description = "id of the public subnet in the AZ 2c"  
   type = string
 }
 
@@ -70,11 +65,6 @@ variable "alb_listener_type" {
   type =string
 }
 
-//variable "alb_target_group_arn" {
-  //description = "Application Load Balancer Target Group ARN"
-  //type = string
-//}
-
 variable "alb_target_group" {
   description = "Application Load Balancer Target Group"
   type = string
@@ -90,7 +80,6 @@ variable "alb_target_group_protocol" {
   type = string
 }
 
-
 variable "vpc_id" {
   description = "The VPC to be deployed"
   type = string
@@ -98,16 +87,16 @@ variable "vpc_id" {
 
 /* configure launch template */
 variable "asg_web_inst_security_group" {
-  description = "EC2 Security Group"
+  description = "security groups for ASG"
   type = string
 }
 
 variable "private_subnet_2a_id" {
-  description = "id of the private subnet in AZ zone 2a"  
+  description = "id of the private subnet in the AZ 2a"  
   type = string
 }
 
 variable "private_subnet_2c_id" {
-  description = "id of the private subnet in AZ zone 2c"  
+  description = "id of the private subnet in the AZ 2c"  
   type = string
 }

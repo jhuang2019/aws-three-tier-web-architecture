@@ -4,12 +4,12 @@ output "vpc_id" {
 }
 
 output "gateway_id" {
-  description = "Identifier of the VPC Internet Gateway" 
+  description = "VPC Internet Gateway" 
   value = aws_internet_gateway.main.id
 }
 
 output "ec2_security_group_name" {
-  description = "EC2 Instance Security Group"
+  description = "The security group for EC2 instances"
   value = aws_security_group.ec2_sg.id
 }
 
@@ -34,11 +34,11 @@ output "private_subnet_2c_id" {
 }
 
 output "web_alb_security_group_name" {
-  description = "Application Load Balancer Security Group"
+  description = "the security group for application load balancers"
   value = aws_security_group.web_alb_sg.id
 }
 
 output "asg_web_inst_security_group_name" {
-  description = "security group for instances created through the launch template"
+  description = "the security group for instances created through the launch template"
   value = aws_security_group.asg_web_inst_sg.id
 }

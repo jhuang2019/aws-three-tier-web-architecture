@@ -1,16 +1,3 @@
-/*data "aws_ami" "amazon-linux2" {
- most_recent = true
- filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
- filter {
-   name   = "name"
-   values = ["Web server v1"]
- }
- owners = ["058264449946"] # AWS
-}*/
-
 resource "aws_instance" "ec2_instance" {
   ami           = var.image_id
   instance_type = var.instance_type
@@ -40,8 +27,7 @@ resource  "aws_ami_from_instance" "from_ec2_ami" {
 }
 
 /* create an application load balancer */
-
-#Application Load Balancer
+# Application Load Balancer
 resource "aws_lb" "main" {
   name               = var.app_alb_name
   internal           = var.alb_internal
@@ -54,7 +40,7 @@ resource "aws_lb" "main" {
   }
 }
 
-#Application Load Balancer Listener
+# Application Load Balancer Listener
 resource "aws_lb_listener" "main" {
   load_balancer_arn = aws_lb.main.arn
   port              = var.alb_listener_port
@@ -66,7 +52,7 @@ resource "aws_lb_listener" "main" {
   }
 }
 
-#Application Load Balancer Target Group
+# Application Load Balancer Target Group
 resource "aws_lb_target_group" "main" {
   name     = var.alb_target_group
   port     = var.alb_target_group_port
@@ -79,12 +65,11 @@ resource "aws_lb_target_group" "main" {
   }
 }
 
-/* configure launch template */
+/* configure launch templates */
 # App - Launch Template
 resource "aws_launch_template" "main" {
   name = "EC2-web-instance"
   description = "Template to launch an EC2 instance and deploy the application"
-  #image_id               = data.aws_ami.amazon-linux2.id
   image_id               = aws_ami_from_instance.from_ec2_ami.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [var.asg_web_inst_security_group]
@@ -96,7 +81,7 @@ resource "aws_launch_template" "main" {
   }
 }
 
-# Create auto scaling policy
+# Create an auto scaling policy
 resource "aws_autoscaling_policy" "example" {
   autoscaling_group_name = aws_autoscaling_group.asg.name
   name                   = "asg-autoscaling-policy"
@@ -110,7 +95,7 @@ resource "aws_autoscaling_policy" "example" {
   estimated_instance_warmup = 60
 }
 
-#Create Auto scaling group
+#Create an Auto scaling group
 resource "aws_autoscaling_group" "asg" {
   name = "Web-ASG"
   vpc_zone_identifier = [ var.private_subnet_2a_id, var.private_subnet_2c_id ]
