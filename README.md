@@ -2,7 +2,9 @@
 
 This repo is used to build high availability and scalability web applications.
 
-The web architecture consists of three tiers, including web tier, application tier and database tier.
+The web architecture consists of three tiers, including web tier (VPC), application tier (EC2) and database tier (RDS).
+
+Section 1 to section 4 desribe the steps and data to bootstrap three tiers manually. Section 5 desribes how to use Terraform to bootstrap the web tier and the application tier.
 
 ## References
 
@@ -17,7 +19,7 @@ EC2,VPC,IAM,RDS and Secrets Manager
 
 ## The architecture diagram
 
-The below diagram is from the first reference site (AWS General Immersion Day workshop) above
+The below diagram is from the first reference site (AWS General Immersion Day workshop) above. But we use `ap-southeast-1` and `ap-southeast-2` in this project.
 ![Alt text](./images/overall-diagram.png)
 
 ## Prerequisites
@@ -27,7 +29,10 @@ The below diagram is from the first reference site (AWS General Immersion Day wo
   * User Name: Administrator
   * Custom password: Create your own password
   * Attach policies directly with the policy name called `AdministratorAccess`
-* The following parts are implemented in the IAM user account created above.
+* Install Terraform
+* Install AWS CLI
+* A locally configured AWS profile for the above IAM user `Administrator`
+* The following parts are implemented in the IAM user account `Administrator`
 
 ## 1. Network - Amazon VPC
 
@@ -202,8 +207,9 @@ Verify whether two EC2 instances have been created successfully after the ASG is
 
 ### 2.6 Test auto scaling and change manual settings
 
-* Open the application load balancer `Web-ALB`. Copy DNS name and open it in the web broswer. Refresh the page a few times and you will notice the web page reflects different availability zones.  
+* Open the application load balancer `Web-ALB`. Copy DNS name and open it in the web broswer. You will notice the web page points to the availability zone 1.
 ![Alt text](./images/ALB_first.png)
+Refresh the page a few times and you will notice the web page reflects in a different availability zone.  
 ![Alt text](./images/ALB_second.png)
 * Click on 'LOAD Test' button from the page
 ![Alt text](./images/ALB_third.png)
@@ -311,3 +317,114 @@ Verify whether ECS instances are able to connect to RDS
 
 * Delete the IAM role `SSMInstanceProfile`
 * Delete the IAM policy `ReadSecrets`
+
+## 5. Use Terraform to bootstrap the web tier and the application tier
+
+### 5.1 Initialise the TF directory
+
+```terraform
+ terraform init
+
+```
+
+### 5.2 Create an execution plan
+
+```terraform
+ terraform plan
+ 
+```
+
+![Alt text](./images/terraform_plan.png)
+
+### 5.2 Execute terraform configuration
+
+```terraform
+ terraform apply --auto-approve
+ 
+```
+
+![Alt text](./images/terraform_apply.png)
+
+### 5.3 Verification steps
+
+#### VPC verification
+
+![Alt text](./images/vpc.png)
+
+#### EC2 verification before the load test
+
+![Alt text](./images/ec2_before.png)
+
+#### ASG verification before the load test
+
+![Alt text](./images/asg_before.png)
+
+#### Load Balancer verification
+
+![Alt text](./images/load_balancer.png)
+
+#### UI verification before the load test
+
+Open a new tab in your web browser and paste the copied DNS name. You can see that web service is working as shown below. For the figure below, you can see that the web instance placed in ap-northeast-2a is running this web page.
+![Alt text](./images/ec2_1.png)
+
+If you click the refresh button here, you can see that the host serving the web page has been replaced with an instance of another availability zone area (ap-southheast-2c) as shown below.
+![Alt text](./images/ec2_2.png)
+
+#### EC2 verification after the load test
+
+![Alt text](./images/ec2_after.png)
+
+#### ASG verification after the load test
+
+You can see the number of the EC2 instances have been increased from 2 to 4 after the load test.
+![Alt text](./images/asg_after.png)
+
+### 5.4 Cleanup resources
+
+```terraform
+ terraform destroy
+ 
+```
+
+![Alt text](./images/terraform_destroy.png)
+
+### 5.5 Misc
+
+#### Requirements
+
+| Name          | Version       |
+| ------------- |:-------------:|
+| terraform     | >= 1.0        |
+| aws           | >= 4.50.0     |
+
+#### Providers
+
+| Name          | Version       |
+| ------------- |:-------------:|
+| aws           | >= 4.50.0     |
+
+#### Modules
+
+vpc ane ec2
+
+#### Resources
+
+| Name          | Type       |
+| ------------- |:-------------:|
+| aws_vpc | resource |
+| aws_subnet | resource |
+| aws_internet_gateway | resource |
+| aws_eip | resource |
+| aws_nat_gateway | resource |
+| aws_route_table | resource |
+| aws_route_table_association | resource |
+| aws_security_group| resource |
+| aws_instance | resource |
+| aws_ami_from_instance | resource |
+| aws_lb| resource |
+| aws_lb_listener| resource |
+| aws_lb_target_group| resource |
+| aws_launch_template | resource |
+| aws_autoscaling_policy | resource |
+| aws_autoscaling_group | resource |
