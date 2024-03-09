@@ -1,10 +1,10 @@
 resource "aws_instance" "ec2_instance" {
-  ami           = var.image_id
-  instance_type = var.instance_type
+  ami                         = var.image_id
+  instance_type               = var.instance_type
   subnet_id                   = var.public_subnet_2a_id
   vpc_security_group_ids      = [var.ec2_security_group]
   associate_public_ip_address = true
-  user_data              = filebase64("./modules/ec2/install.sh")
+  user_data                   = filebase64("./modules/ec2/install.sh")
 
   tags = {
     Name = "EC2 web instance"
@@ -12,17 +12,17 @@ resource "aws_instance" "ec2_instance" {
 }
 
 /* create an ami from the EC2 intance created above */
-resource  "aws_ami_from_instance" "from_ec2_ami" {
-    name               = "Web server v1"
-    description = "LAMP web server AMI"
-    source_instance_id = aws_instance.ec2_instance.id
+resource "aws_ami_from_instance" "from_ec2_ami" {
+  name               = "Web server v1"
+  description        = "LAMP web server AMI"
+  source_instance_id = aws_instance.ec2_instance.id
 
   depends_on = [
-      aws_instance.ec2_instance,
-      ]
+    aws_instance.ec2_instance,
+  ]
 
   tags = {
-      Name = "from-ec2-ami"
+    Name = "from-ec2-ami"
   }
 }
 
@@ -33,10 +33,10 @@ resource "aws_lb" "main" {
   internal           = var.alb_internal
   load_balancer_type = var.load_balancer_type
   security_groups    = [var.web_alb_security_group_name]
-  subnets = [ var.public_subnet_2a_id, var.public_subnet_2c_id ] 
+  subnets            = [var.public_subnet_2a_id, var.public_subnet_2c_id]
 
   tags = {
-     Name = "Application-ALB" 
+    Name = "Application-ALB"
   }
 }
 
@@ -60,7 +60,7 @@ resource "aws_lb_target_group" "main" {
   vpc_id   = var.vpc_id
 
   health_check {
-    protocol  = var.alb_target_group_protocol
+    protocol = var.alb_target_group_protocol
     port     = var.alb_target_group_port
   }
 }
@@ -68,13 +68,13 @@ resource "aws_lb_target_group" "main" {
 /* configure launch templates */
 # App - Launch Template
 resource "aws_launch_template" "main" {
-  name = "EC2-web-instance"
-  description = "Template to launch an EC2 instance and deploy the application"
+  name                   = "EC2-web-instance"
+  description            = "Template to launch an EC2 instance and deploy the application"
   image_id               = aws_ami_from_instance.from_ec2_ami.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [var.asg_web_inst_security_group]
-  
-  user_data              = filebase64("./modules/ec2/install.sh")
+
+  user_data = filebase64("./modules/ec2/install.sh")
 
   tags = {
     Name = "EC2 web instance launch template"
@@ -90,21 +90,21 @@ resource "aws_autoscaling_policy" "example" {
     predefined_metric_specification {
       predefined_metric_type = "ASGAverageCPUUtilization"
     }
-    target_value = 30    
+    target_value = 30
   }
   estimated_instance_warmup = 60
 }
 
 #Create an Auto scaling group
 resource "aws_autoscaling_group" "asg" {
-  name = "Web-ASG"
-  vpc_zone_identifier = [ var.private_subnet_2a_id, var.private_subnet_2c_id ]
-  desired_capacity   = 2
-  max_size           = 4
-  min_size           = 2
+  name                = "Web-ASG"
+  vpc_zone_identifier = [var.private_subnet_2a_id, var.private_subnet_2c_id]
+  desired_capacity    = 2
+  max_size            = 4
+  min_size            = 2
   //health_check_type = "ELB"
   health_check_grace_period = 120
-  target_group_arns = [aws_lb_target_group.main.arn]
+  target_group_arns         = [aws_lb_target_group.main.arn]
   launch_template {
     id      = aws_launch_template.main.id
     version = "$Latest"

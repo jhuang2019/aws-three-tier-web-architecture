@@ -2,9 +2,9 @@ vpc_cidr = ["10.0.0.0/16"]
 
 vpc_id = ["aws_vpc.main.id"]
 
-availability_zones = ["ap-southeast-2a","ap-southeast-2c"]
+availability_zones = ["ap-southeast-2a", "ap-southeast-2c"]
 
-public_subnet = ["10.0.10.0/24", "10.0.20.0/24" ]
+public_subnet = ["10.0.10.0/24", "10.0.20.0/24"]
 
 private_subnet = ["10.0.100.0/24", "10.0.200.0/24"]
 

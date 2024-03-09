@@ -11,7 +11,7 @@ variable "region" {
 variable "vpc_id" {
   description = "The VPC to be deployed"
   type        = string
-  default     = "aws_vpc.main.id"  
+  default     = "aws_vpc.main.id"
 }
 
 variable "vpc_cidr" {
@@ -23,13 +23,13 @@ variable "vpc_cidr" {
 variable "public_subnet" {
   description = "A list of public subnets inside the VPC"
   type        = list(string)
-  default = ["10.0.10.0/24", "10.0.20.0/24" ]
+  default     = ["10.0.10.0/24", "10.0.20.0/24"]
 }
 
 variable "private_subnet" {
   description = "A list of private subnets inside the VPC"
   type        = list(string)
-  default = ["10.0.100.0/24", "10.0.200.0/24"]
+  default     = ["10.0.100.0/24", "10.0.200.0/24"]
 }
 
 variable "availability_zones" {
@@ -87,7 +87,7 @@ variable "image_id" {
   description = "Image ID"
   type        = string
   //default     = "ami-07e1aeb90edb268a3"
-  default     = "ami-023eb5c021738c6d0"
+  default = "ami-023eb5c021738c6d0"
 }
 
 variable "instance_type" {
@@ -99,60 +99,60 @@ variable "instance_type" {
 /* create an application load balancer */
 variable "app_alb_name" {
   description = "Name of Application Load Balancer"
-  type = string
-  default = "Web-ALB"
+  type        = string
+  default     = "Web-ALB"
 }
 
 variable "alb_internal" {
   description = "Application Load Balancer Network Type"
-  type = string 
-  default = "false"
+  type        = string
+  default     = "false"
 }
 
 variable "load_balancer_type" {
   description = "Type of Load Balancer"
-  type = string
-  default = "application"
+  type        = string
+  default     = "application"
 }
 
 variable "load_balancer_arn" {
   description = "Application Load Balancer ARN"
-  type = string
-  default = "aws_lb.main.arn"
+  type        = string
+  default     = "aws_lb.main.arn"
 }
 
 variable "alb_listener_port" {
   description = "Application Load Balancer Listener Port"
-  type = string
-  default = "80"
+  type        = string
+  default     = "80"
 }
 
 variable "alb_listener_protocol" {
   description = "Application Load Balancer Listener Protocol"
-  type = string
-  default ="HTTP"
+  type        = string
+  default     = "HTTP"
 }
 
 variable "alb_listener_type" {
   description = "Application Load Balancer Listener Type"
-  type =string
-  default ="forward"
+  type        = string
+  default     = "forward"
 }
 
 variable "alb_target_group" {
   description = "Application Load Balancer Target Group"
-  type = string
-  default = "web-TG"
+  type        = string
+  default     = "web-TG"
 }
 
 variable "alb_target_group_port" {
   description = "Application Load Balancer Target Group Port"
-  type = string
-  default = "80"
+  type        = string
+  default     = "80"
 }
 
 variable "alb_target_group_protocol" {
   description = "Application Load Balancer Target Protocol"
-  type = string
-  default = "HTTP"
+  type        = string
+  default     = "HTTP"
 }
