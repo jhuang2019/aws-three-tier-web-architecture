@@ -117,7 +117,7 @@ resource "aws_autoscaling_group" "asg" {
   desired_capacity   = 2
   max_size           = 4
   min_size           = 2
-  health_check_type = "ELB"
+  //health_check_type = "ELB"
   health_check_grace_period = 120
   target_group_arns = [aws_lb_target_group.main.arn]
   launch_template {

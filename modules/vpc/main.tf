@@ -199,6 +199,12 @@ resource "aws_security_group" "web_alb_sg" {
             protocol = "tcp"
             cidr_blocks = [var.cidr_block]
     }
+  egress {
+            from_port = 0
+            to_port = 0
+            protocol = "-1"
+            cidr_blocks = [var.cidr_block]
+    }
 
     tags = {
         Name = "web-ALB-SG"
@@ -217,6 +223,13 @@ resource "aws_security_group" "asg_web_inst_sg" {
             to_port = 80
             protocol = "tcp"
             security_groups = [aws_security_group.web_alb_sg.id]
+    }
+    
+    egress {
+            from_port = 0
+            to_port = 0
+            protocol = "-1"
+            cidr_blocks = [var.cidr_block]
     }
     
     tags = {
