@@ -211,7 +211,7 @@ Verify whether two EC2 instances have been created successfully after the ASG is
 ![Alt text](./images/ALB_first.png)
 
 Refresh the page a few times and you will notice the web page reflects in a different availability zone `ap-southeast-2c`.
-![Alt text](./images/ALB_second.png)
+![Alt text](./images/ALB_Second.png)
 
 * Click on 'LOAD Test' button from the page
 ![Alt text](./images/ALB_third.png)
