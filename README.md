@@ -207,10 +207,12 @@ Verify whether two EC2 instances have been created successfully after the ASG is
 
 ### 2.6 Test auto scaling and change manual settings
 
-* Open the application load balancer `Web-ALB`. Copy DNS name and open it in the web broswer. You will notice the web page points to the availability zone 1.
+* Open the application load balancer `Web-ALB`. Copy DNS name and open it in the web broswer. You will notice the web page points to the availability zone `ap-southeast-2a`.
 ![Alt text](./images/ALB_first.png)
-Refresh the page a few times and you will notice the web page reflects in a different availability zone.  
+
+Refresh the page a few times and you will notice the web page reflects in a different availability zone `ap-southeast-2c`.
 ![Alt text](./images/ALB_second.png)
+
 * Click on 'LOAD Test' button from the page
 ![Alt text](./images/ALB_third.png)
 * Wait for 2 mins (120 seconds) and click the Activity tab to see the additional EC2 instances deployed according to the scaling policy.
